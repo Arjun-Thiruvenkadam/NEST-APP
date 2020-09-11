@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, AuthenticatedUser } from './auth.interface';
+import { User } from './Interfaces/user.interface';
+import { AuthenticatedUser } from './Interfaces/authenticatedUser.interface';
 import { AuthModel } from './auth.model';
 
 @Injectable()
@@ -38,5 +39,10 @@ export class AuthService {
       };
       return payload;
     }
+  }
+
+  async getUser(personId:string): Promise<User|string>{
+    const user = await this.authModel.getUserWithId(personId);
+    return user;
   }
 }

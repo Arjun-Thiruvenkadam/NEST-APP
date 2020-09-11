@@ -1,6 +1,7 @@
 import { Controller, Put, Get, Body, Param, UseGuards, Query } from '@nestjs/common';
 import { TicketsService } from './ticket.service';
-import { Ticket, TicketStatus } from './ticket.interface';
+import { Ticket } from './Interfaces/ticket.interface';
+import { TicketStatus } from './Interfaces/ticketStatus.interface';
 import { AuthGuard } from './ticket.gaurd';
 
 @Controller('tickets')
@@ -8,8 +9,8 @@ export class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
   @Put('update')
-  async updateTickets(@Body() ticketsArr: Ticket[]): Promise<TicketStatus[]> {
-    const result = await this.ticketsService.updateAllTickets(ticketsArr);
+  async updateTickets(@Body() tickets: Ticket[]): Promise<TicketStatus[]> {
+    const result = await this.ticketsService.updateAllTickets(tickets);
     return result;
   }
 
@@ -38,17 +39,17 @@ export class TicketsController {
   }
 
   @Get(':id')
-  async getTicketStatus(@Param('id') ticketId: string):Promise<Ticket | string> {
+  async getTicket(@Param('id') ticketId: string):Promise<Ticket | string> {
     const id = parseInt(ticketId);
     if (isNaN(id)) return 'Check URL';
-    const status = await this.ticketsService.getTicket(id);
-    return status;
+    const ticket = await this.ticketsService.getTicket(id);
+    return ticket;
   }
 
   @Get('status/:stat')
   async getTicketsWithStatus(@Param('stat')stat:string):Promise<Ticket[]> {
-    const closed = await this.ticketsService.getTicketsWithStatus(stat);
-    return closed;
+    const tickets = await this.ticketsService.getTicketsWithStatus(stat);
+    return tickets;
   }
 
 }

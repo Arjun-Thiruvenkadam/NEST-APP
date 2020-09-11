@@ -1,21 +1,29 @@
-import { User} from './auth.interface';
+import { User } from './Interfaces/user.interface';
 import { Model } from 'mongoose';
 
 export class AuthModel {
-  constructor(private readonly authModel:Model<User>) {}
+  constructor(private readonly authModel: Model<User>) {}
 
-  async getUser(email:string):Promise<User[]> {
-    const user = await this.authModel.find({ mail: email });
+  async getUser(mail: string): Promise<User[]> {
+    const user = await this.authModel.find({ mail });
     return user;
   }
-  
-  async createUser(user:User):Promise<User> {
+
+  async createUser(user: User): Promise<User> {
     const newUser = await this.authModel.create(user);
     return newUser;
   }
-  
-  async getVerifiedUser(email:string, password:string) : Promise<User[]>{
-    const verUser = await this.authModel.find({mail:email, password:password});
-    return verUser;
+
+  async getVerifiedUser(mail: string, password: string): Promise<User[]> {
+    const verifiedUser = await this.authModel.find({ mail, password });
+    return verifiedUser;
+  }
+
+  async getUserWithId(personId: string): Promise<User|string> {
+    const user = await this.authModel
+      .findById(personId)
+      .exec()
+      .catch(e => {return 'Invalid Id'});
+    return user;
   }
 }
