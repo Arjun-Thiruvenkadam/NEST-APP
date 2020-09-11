@@ -17,14 +17,17 @@
 
 ## Endpoints
 
-|HTTP Method |Entity   |Endpoint   |Input   |Result Object   |   |
-|---|---|---|---|---|---|
-|Put   |/tickets|/update   |   |   |   |
-|Put   ||/reset   |   |   |   |
-|Put   ||/:id   |   |   |   |
-|Get   ||/   |   |   |   |
-|Get   ||/:id   |   |   |   |
-|Get   ||/status/:stat   |   |   |   |
+|HTTP Method |Entity   |Endpoint   |Input   |Result Object   |
+|---|---|---|---|---|
+|Put   |/tickets|/update   |Body:<br>[<br>{<br> ticketId : integer ,<br> personId : string <br>},<br>{...},<br>..<br>]   |[<br>{<br> ticketId : integer ,<br> updated : boolean<br> },<br>{...},<br>..<br>]   |
+|Put   ||/reset   |Body:<br>{<br>key : string <br>}   |result : string   |
+|Put   ||/:id   |Param:<br>{ <br>userId : string<br> }   |result : string   |
+|Get   ||/   |   |<br>[<br>{<br> ticketId : integer ,<br> status : string ,<br> personId : string <br>},<br>{...},<br>..<br>]   |
+|Get   ||/:id   |   |{<br>ticketId : integer ,<br> status : string ,<br> personId : string<br>}   |
+|Get   ||/status/:stat   |   |<br>[<br>{<br> ticketId : integer ,<br> status : string ,<br> personId : string <br>},<br>{...},<br>..<br>]   |
+|Post   |/auth|/signup|Body:<br>{<br> userName : string ,<br> mail : string ,<br> password : string <br>}| {<br>name : string ,<br> token : string <br>}|
+|Get   |---|/login|Body:<br>{<br> email : string ,<br> password : string <br>}|{<br>name : string ,<br> token : string <br>}|
+|Get   |---|/:userId|   |{<br> userName : string ,<br> mail : string ,<br> _id : string <br>}  |
 
 ## Installation
 

@@ -26,9 +26,8 @@ export class TicketsModel {
   //helper
   async validatePersonId(personId: string): Promise<boolean> {
     const user = await this.authService.getUser(personId);
-    if (user == 'Invalid Id') {
-      return false;
-    }
+    if (user == 'Invalid Id') return false;
+    if (!user) return false;
     return true;
   }
 
@@ -56,7 +55,9 @@ export class TicketsModel {
   }
 
   async getTicket(id: number): Promise<Ticket> {
-    const result = await this.ticketModel.findOne({ ticketId: id }).exec();
+    const result = await this.ticketModel
+      .findOne({ ticketId: id }, '-_id -__v')
+      .exec();
     return result;
   }
 

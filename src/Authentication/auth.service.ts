@@ -43,6 +43,7 @@ export class AuthService {
 
   async getUser(personId:string): Promise<User|string>{
     const user = await this.authModel.getUserWithId(personId);
+    if(!user) return "No User Available with the given id";
     return user;
   }
 }

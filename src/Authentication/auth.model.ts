@@ -21,7 +21,7 @@ export class AuthModel {
 
   async getUserWithId(personId: string): Promise<User|string> {
     const user = await this.authModel
-      .findById(personId)
+      .findById(personId,'-__v -password')
       .exec()
       .catch(e => {return 'Invalid Id'});
     return user;
