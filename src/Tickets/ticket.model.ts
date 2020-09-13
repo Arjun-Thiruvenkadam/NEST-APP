@@ -27,7 +27,7 @@ export class TicketsModel {
   async validatePersonId(personId: string): Promise<boolean> {
     const user = await this.authService.getUser(personId);
     if (user == 'Invalid Id') return false;
-    if (!user) return false;
+    if (user == 'No User Available with the given id') return false;
     return true;
   }
 
