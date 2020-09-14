@@ -5,4 +5,3 @@ export const TicketSchema = new mongoose.Schema({
   status: String,
   personId: String,
 });
-

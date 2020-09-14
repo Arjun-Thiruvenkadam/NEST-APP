@@ -1,6 +1,6 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../../Authentication/auth.service';
+import { AuthService } from '../../authentication/auth.service';
 import { TicketsService } from '../ticket.service';
 
 describe('Tickets Service', () => {
@@ -17,8 +17,8 @@ describe('Tickets Service', () => {
         },
         {
           provide: getModelToken('User'),
-          useValue: {}
-        }
+          useValue: {},
+        },
       ],
     }).compile();
     ticketService = module.get<TicketsService>(TicketsService);
@@ -37,10 +37,8 @@ describe('Tickets Service', () => {
 
   describe('updateTicket', () => {
     it('There is no ticket for values <1 and >40', async () => {
-      const ticket = await ticketService.updateTicket(0,'');
+      const ticket = await ticketService.updateTicket(0, '');
       expect(ticket).toBe('There is no ticket with the given id');
     });
   });
-
 });
-

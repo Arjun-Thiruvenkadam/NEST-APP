@@ -19,22 +19,17 @@ describe('API testing (e2e)', () => {
     await app.close();
   });
 
-  it('Ticket with id (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/tickets/1')
-      .then(res=>{
-        expect(res.body).toHaveProperty('ticketId',1);
-        expect(res.body).toHaveProperty('status');
-        expect(res.body).toHaveProperty('personId');
-      });
-  });
+  it('Ticket with id (GET)', () => request(app.getHttpServer())
+    .get('/tickets/1')
+    .then((res) => {
+      expect(res.body).toHaveProperty('ticketId', 1);
+      expect(res.body).toHaveProperty('status');
+      expect(res.body).toHaveProperty('personId');
+    }));
 
-  it('Tickets (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/tickets')
-      .then(res=>{
-        expect(res.body).toBeDefined();
-      });
-  });
-
+  it('Tickets (GET)', () => request(app.getHttpServer())
+    .get('/tickets')
+    .then((res) => {
+      expect(res.body).toBeDefined();
+    }));
 });

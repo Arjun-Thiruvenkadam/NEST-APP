@@ -1,28 +1,28 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { User } from './Interfaces/user.interface';
-import { LoginPayload } from './Interfaces/loginPayload.interface';
-import { AuthenticatedUser } from './Interfaces/authenticatedUser.interface';
+import { User } from '../users/interfaces/user.interface';
+import { LoginPayload } from './interfaces/loginPayload.interface';
+import { AuthenticatedUser } from './interfaces/authenticatedUser.interface';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get('/login')
-  async login(@Body() loginPayload: LoginPayload):Promise<AuthenticatedUser | string> {
-    const user = await this.authService.login(loginPayload.email, loginPayload.password);
+  async login(
+    @Body() loginPayload: LoginPayload,
+  ): Promise<AuthenticatedUser | string> {
+    const user = await this.authService.login(
+      loginPayload.email,
+      loginPayload.password,
+    );
     return user;
   }
 
   @Post('/signup')
-  async signup(@Body() authPayload: User):Promise<AuthenticatedUser | string> {
+  async signup(@Body() authPayload: User): Promise<AuthenticatedUser | string> {
     const user = await this.authService.signup(authPayload);
     return user;
   }
 
-  @Get('/:userId')
-  async getUser(@Param('userId') personId: string):Promise<User | string>{
-    const user = await this.authService.getUser(personId);
-    return user;
-  }
 }

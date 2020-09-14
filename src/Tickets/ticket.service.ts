@@ -1,10 +1,10 @@
-import { TicketsModel } from './ticket.model';
-import { Ticket } from './Interfaces/ticket.interface';
-import { TicketStatus } from './Interfaces/ticketStatus.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AuthService } from '../Authentication/auth.service';
+import TicketsModel from './ticket.model';
+import { Ticket } from './interfaces/ticket.interface';
+import { TicketStatus } from './interfaces/ticketStatus.interface';
+import UserService from '../users/user.service';
 
 @Injectable()
 export class TicketsService {
@@ -12,9 +12,9 @@ export class TicketsService {
 
   constructor(
     @InjectModel('Ticket') private readonly ticModel: Model<Ticket>,
-    private readonly authService: AuthService,
+    private readonly userService: UserService,
   ) {
-    this.ticketModel = new TicketsModel(ticModel, authService);
+    this.ticketModel = new TicketsModel(ticModel, userService);
   }
 
   async getAllTickets(): Promise<Ticket[]> {

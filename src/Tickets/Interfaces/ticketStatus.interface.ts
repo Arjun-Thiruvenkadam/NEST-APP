@@ -1,4 +1,4 @@
-export interface TicketStatus{
-    ticketId : number;
-    updated : boolean;
+export interface TicketStatus {
+  ticketId: number;
+  updated: boolean;
 }

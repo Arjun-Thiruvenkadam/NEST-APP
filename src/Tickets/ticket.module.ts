@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TicketsController } from './ticket.controller';
-import { TicketsService } from './ticket.service';
-import { AuthModule } from '../Authentication/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import TicketsController from './ticket.controller';
+import { TicketsService } from './ticket.service';
 import { TicketSchema } from './ticket.schema';
+import { UserModule } from '../users/user.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Ticket', schema: TicketSchema }]),
-    AuthModule
+    UserModule,
   ],
   controllers: [TicketsController],
   providers: [TicketsService],

@@ -2,12 +2,14 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export default class AuthGuard implements CanActivate {
+  private request;
+
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
-    if (request.body.key === process.env.ADMIN_KEY) return true;
-    else return false;
+    this.request = context.switchToHttp().getRequest();
+    if (this.request.body.key === process.env.ADMIN_KEY) return true;
+    return false;
   }
 }

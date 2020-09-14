@@ -1,12 +1,12 @@
 import { Model } from 'mongoose';
-import { Ticket } from './Interfaces/ticket.interface';
-import { TicketStatus } from './Interfaces/ticketStatus.interface';
-import { AuthService } from 'src/Authentication/auth.service';
+import UserService from '../users/user.service';
+import { Ticket } from './interfaces/ticket.interface';
+import { TicketStatus } from './interfaces/ticketStatus.interface';
 
-export class TicketsModel {
+export default class TicketsModel {
   constructor(
     private readonly ticketModel: Model<Ticket>,
-    private readonly authService: AuthService,
+    private readonly userService: UserService,
   ) {}
 
   async getAllTickets(): Promise<Ticket[]> {
@@ -14,7 +14,7 @@ export class TicketsModel {
     return tickets;
   }
 
-  //helper
+  // helper
   createTicket(id: number, flag: boolean): TicketStatus {
     const ticket = {
       ticketId: id,
@@ -23,11 +23,11 @@ export class TicketsModel {
     return ticket;
   }
 
-  //helper
+  // helper
   async validatePersonId(personId: string): Promise<boolean> {
-    const user = await this.authService.getUser(personId);
-    if (user == 'Invalid Id') return false;
-    if (user == 'No User Available with the given id') return false;
+    const user = await this.userService.getUserWithId(personId);
+    if (user === 'Invalid Id') return false;
+    if (user === 'No User Available with the given id') return false;
     return true;
   }
 
@@ -40,16 +40,18 @@ export class TicketsModel {
           { ticketId: ticket.ticketId, status: 'open' },
           { status: 'closed', personId: ticket.personId },
         );
-        if (result.nModified == 1)
+        if (result.nModified == 1) {
           ticketsResult.push(
             this.createTicket(parseInt(ticket.ticketId), true),
           );
-        else
+        } else {
           ticketsResult.push(
             this.createTicket(parseInt(ticket.ticketId), false),
           );
-      } else
+        }
+      } else {
         ticketsResult.push(this.createTicket(parseInt(ticket.ticketId), false));
+      }
     }
     return ticketsResult;
   }
@@ -72,7 +74,7 @@ export class TicketsModel {
     const result = await this.ticketModel
       .updateMany({}, { status: 'open', personId: null })
       .exec();
-    return result.nModified + ' Modified';
+    return `${result.nModified} Modified`;
   }
 
   async updateTicket(id: number, userId: string): Promise<string> {
@@ -83,8 +85,9 @@ export class TicketsModel {
           { personId: userId, status: 'closed' },
         )
         .exec();
-      if (result.nModified == 1) return 'Success';
+      if (result.nModified === 1) return 'Success';
       return 'Already Booked';
-    } else return 'Check User Id';
+    }
+    return 'Check User Id';
   }
 }

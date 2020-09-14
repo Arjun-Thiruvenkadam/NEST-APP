@@ -1,6 +1,5 @@
 export interface Ticket {
-    ticketId: string;
-    status: string;
-    personId: string;
-  }
-  
+  ticketId: string;
+  status: string;
+  personId: string;
+}
