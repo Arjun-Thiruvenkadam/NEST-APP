@@ -29,7 +29,7 @@ export class AuthService {
 
   async signup(user: User): Promise<AuthenticatedUser | string> {
     const result = await this.userService.getUser(user.mail);
-    if (result.length > 0) return 'Email already registered';
+    if (result) return 'Email already registered';
 
     const newUser = await this.userService.createUser(user);
     if (!newUser) return 'Registration Failed';

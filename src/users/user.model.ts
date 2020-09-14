@@ -4,8 +4,8 @@ import { User } from './interfaces/user.interface';
 export default class UserModel {
   constructor(private readonly userModel: Model<User>) {}
 
-  async getUser(mail: string): Promise<User[]> {
-    const user = await this.userModel.find({ mail });
+  async getUser(mail: string): Promise<User> {
+    const user = await this.userModel.findOne({ mail });
     return user;
   }
 

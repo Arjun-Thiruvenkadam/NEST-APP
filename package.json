@@ -27,6 +27,7 @@
     "@nestjs/mongoose": "^7.0.2",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/serve-static": "^2.1.3",
+    "@shelf/jest-mongodb": "^1.2.3",
     "dotenv": "^8.2.0",
     "mongoose": "^5.10.2",
     "nestjs-dotenv": "^1.2.1",
@@ -66,7 +67,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "test",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

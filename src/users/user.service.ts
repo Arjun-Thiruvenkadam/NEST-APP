@@ -11,7 +11,7 @@ export default class UserService {
     this.userModel = new UserModel(userDbModel);
   }
 
-  async getUser(mail: string): Promise<User[]> {
+  async getUser(mail: string): Promise<User> {
     const user = await this.userModel.getUser(mail);
     return user;
   }
