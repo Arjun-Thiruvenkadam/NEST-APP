@@ -1,4 +1,4 @@
-export interface TicketStatus {
+export class TicketStatus {
   ticketId: number;
   updated: boolean;
 }

@@ -1,4 +1,4 @@
-export interface AuthenticatedUser {
+export class AuthenticatedUser {
   token: string;
   name: string;
 }

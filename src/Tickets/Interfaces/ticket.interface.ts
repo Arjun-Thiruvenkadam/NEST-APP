@@ -1,4 +1,4 @@
-export interface Ticket {
+export class Ticket {
   ticketId: string;
   status: string;
   personId: string;

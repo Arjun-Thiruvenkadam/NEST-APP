@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { User } from '../users/interfaces/user.interface';
 import { AuthenticatedUser } from './interfaces/authenticatedUser.interface';
 import UserService from '../users/user.service';
+import { AuthPayload } from './interfaces/authPayload.interface';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,7 @@ export class AuthService {
     return 'Check email and password';
   }
 
-  async signup(user: User): Promise<AuthenticatedUser | string> {
+  async signup(user: AuthPayload): Promise<AuthenticatedUser | string> {
     const result = await this.userService.getUser(user.mail);
     if (result) return 'Email already registered';
 

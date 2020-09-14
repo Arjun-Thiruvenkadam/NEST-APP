@@ -1,38 +1,35 @@
-import {
-  Controller,
-  Put,
-  Get,
-  Body,
-  Param,
-  UseGuards,
-  Query,
-} from '@nestjs/common';
+import { Controller, Put, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { TicketsService } from './ticket.service';
 import { Ticket } from './interfaces/ticket.interface';
 import { TicketStatus } from './interfaces/ticketStatus.interface';
+import { TicketPayload } from './interfaces/ticketPayload.interface';
 import AuthGuard from './ticket.gaurd';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('tickets')
 export default class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
   @Put('update')
-  async updateTickets(@Body() tickets: Ticket[]): Promise<TicketStatus[]> {
+  @ApiBody({type:TicketPayload, isArray:true ,required:true})
+  async updateTickets(@Body() tickets: TicketPayload[]): Promise<TicketStatus[]> {
     const result = await this.ticketsService.updateAllTickets(tickets);
     return result;
   }
 
   @UseGuards(AuthGuard)
   @Put('reset')
-  async resetTickets(): Promise<string> {
+  @ApiBody({type:String , required:true})
+  async resetTickets(@Body('key') key: number): Promise<string> {
     const tickets = await this.ticketsService.resetTickets();
     return tickets;
   }
 
   @Put(':id')
+  @ApiBody({type:String,required:true})
   async updateTicketStatus(
     @Param('id') ticketId: string,
-    @Query('userId') userId: string,
+    @Body('userId') userId: string,
   ): Promise<string> {
     const id = parseInt(ticketId, 10);
     if (isNaN(id)) return 'Check URL';

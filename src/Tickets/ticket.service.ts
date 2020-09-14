@@ -5,6 +5,7 @@ import TicketsModel from './ticket.model';
 import { Ticket } from './interfaces/ticket.interface';
 import { TicketStatus } from './interfaces/ticketStatus.interface';
 import UserService from '../users/user.service';
+import { TicketPayload } from './interfaces/ticketPayload.interface';
 
 @Injectable()
 export class TicketsService {
@@ -22,7 +23,7 @@ export class TicketsService {
     return tickets;
   }
 
-  async updateAllTickets(tickets: Ticket[]): Promise<TicketStatus[]> {
+  async updateAllTickets(tickets: TicketPayload[]): Promise<TicketStatus[]> {
     const result = await this.ticketModel.updateAllTickets(tickets);
     return result;
   }

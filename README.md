@@ -26,8 +26,8 @@
 |Get   ||/:id   |   |{<br>ticketId : integer ,<br> status : string ,<br> personId : string<br>}   |
 |Get   ||/status/:stat   |   |<br>[<br>{<br> ticketId : integer ,<br> status : string ,<br> personId : string <br>},<br>{...},<br>..<br>]   |
 |Post   |/auth|/signup|Body:<br>{<br> userName : string ,<br> mail : string ,<br> password : string <br>}| {<br>name : string ,<br> token : string <br>}|
-|Get   |---|/login|Body:<br>{<br> email : string ,<br> password : string <br>}|{<br>name : string ,<br> token : string <br>}|
-|Get   |---|/:userId|   |{<br> userName : string ,<br> mail : string ,<br> _id : string <br>}  |
+|Get   ||/login|Body:<br>{<br> email : string ,<br> password : string <br>}|{<br>name : string ,<br> token : string <br>}|
+|Get   |/users|/:userId|   |{<br> userName : string ,<br> mail : string ,<br> _id : string <br>}  |
 
 ## Installation
 

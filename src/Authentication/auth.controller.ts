@@ -1,14 +1,15 @@
-import { Controller, Post, Body, Get} from '@nestjs/common';
+import { Controller, Post, Body} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from '../users/interfaces/user.interface';
 import { LoginPayload } from './interfaces/loginPayload.interface';
 import { AuthenticatedUser } from './interfaces/authenticatedUser.interface';
+import { AuthPayload } from './interfaces/authPayload.interface';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('/login')
+  @Post('/login')
   async login(
     @Body() loginPayload: LoginPayload,
   ): Promise<AuthenticatedUser | string> {
@@ -20,7 +21,7 @@ export class AuthController {
   }
 
   @Post('/signup')
-  async signup(@Body() authPayload: User): Promise<AuthenticatedUser | string> {
+  async signup(@Body() authPayload: AuthPayload): Promise<AuthenticatedUser | string> {
     const user = await this.authService.signup(authPayload);
     return user;
   }

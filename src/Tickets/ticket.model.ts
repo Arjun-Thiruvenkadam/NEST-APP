@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import UserService from '../users/user.service';
 import { Ticket } from './interfaces/ticket.interface';
+import { TicketPayload } from './interfaces/ticketPayload.interface';
 import { TicketStatus } from './interfaces/ticketStatus.interface';
 
 export default class TicketsModel {
@@ -31,7 +32,7 @@ export default class TicketsModel {
     return true;
   }
 
-  async updateAllTickets(tickets: Ticket[]): Promise<TicketStatus[]> {
+  async updateAllTickets(tickets: TicketPayload[]): Promise<TicketStatus[]> {
     const ticketsResult = [];
     for (const ticketIndex in tickets) {
       const ticket = tickets[ticketIndex];
@@ -42,15 +43,15 @@ export default class TicketsModel {
         );
         if (result.nModified == 1) {
           ticketsResult.push(
-            this.createTicket(parseInt(ticket.ticketId), true),
+            this.createTicket(ticket.ticketId, true),
           );
         } else {
           ticketsResult.push(
-            this.createTicket(parseInt(ticket.ticketId), false),
+            this.createTicket(ticket.ticketId, false),
           );
         }
       } else {
-        ticketsResult.push(this.createTicket(parseInt(ticket.ticketId), false));
+        ticketsResult.push(this.createTicket(ticket.ticketId, false));
       }
     }
     return ticketsResult;
