@@ -12,7 +12,7 @@
 
 ## Environment Variables Used
 
-- [DB_URL] - MongoDb URL hosted on Atlas 
+- [DB_URL] - MongoDb URL hosted on Atlas
 - [ADMIN_KEY] - Admin key for accessing reset option in API
 
 ## Endpoints
@@ -26,7 +26,7 @@
 |Get   ||/:id   |   |{<br>ticketId : integer ,<br> status : string ,<br> personId : string<br>}   |
 |Get   ||/status/:stat   |   |<br>[<br>{<br> ticketId : integer ,<br> status : string ,<br> personId : string <br>},<br>{...},<br>..<br>]   |
 |Post   |/auth|/signup|Body:<br>{<br> userName : string ,<br> mail : string ,<br> password : string <br>}| {<br>name : string ,<br> token : string <br>}|
-|Get   ||/login|Body:<br>{<br> email : string ,<br> password : string <br>}|{<br>name : string ,<br> token : string <br>}|
+|Post   ||/login|Body:<br>{<br> email : string ,<br> password : string <br>}|{<br>name : string ,<br> token : string <br>}|
 |Get   |/users|/:userId|   |{<br> userName : string ,<br> mail : string ,<br> _id : string <br>}  |
 
 ## Installation
