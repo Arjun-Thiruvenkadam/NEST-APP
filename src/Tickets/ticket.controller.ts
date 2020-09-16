@@ -4,29 +4,32 @@ import { Ticket } from './interfaces/ticket.interface';
 import { TicketStatus } from './interfaces/ticketStatus.interface';
 import { TicketPayload } from './interfaces/ticketPayload.interface';
 import AuthGuard from './ticket.gaurd';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody} from '@nestjs/swagger';
 
 @Controller('tickets')
 export default class TicketsController {
   constructor(private readonly ticketsService: TicketsService) {}
 
   @Put('update')
-  @ApiBody({type:TicketPayload, isArray:true ,required:true})
-  async updateTickets(@Body() tickets: TicketPayload[]): Promise<TicketStatus[]> {
+  @ApiBody({ type: TicketPayload, isArray: true, required: true })
+  async updateTickets(
+    @Body() tickets: TicketPayload[],
+  ): Promise<TicketStatus[]> {
     const result = await this.ticketsService.updateAllTickets(tickets);
     return result;
   }
 
   @UseGuards(AuthGuard)
   @Put('reset')
-  @ApiBody({type:String , required:true})
-  async resetTickets(@Body('key') key: number): Promise<string> {
+  async resetTickets(@Body() key:string): Promise<string> {
     const tickets = await this.ticketsService.resetTickets();
+    console.log(key);
+    
     return tickets;
   }
 
   @Put(':id')
-  @ApiBody({type:String,required:true})
+  @ApiBody({ type: String, required: true })
   async updateTicketStatus(
     @Param('id') ticketId: string,
     @Body('userId') userId: string,
