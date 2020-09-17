@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const fs = require('fs');
+const path = require('path');
+
+const tsconfig = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, 'tsconfig.json')),
+);
 module.exports = {
   env: {
     node: true,
@@ -15,6 +22,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',
+    project: tsconfig,
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
