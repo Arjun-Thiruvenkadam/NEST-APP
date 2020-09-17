@@ -40,7 +40,7 @@ describe('Integration Test', () => {
       expect(ticket).toHaveProperty('ticketId', 1);
     });
 
-    it('should be null for ticket id <0 and >40', async () => {
+    it('should be null for ticket whose id <0 and >40', async () => {
       const ticket = await ticketsModel.findOne({ ticketId: 45 });
       expect(ticket).toBeNull();
     });
