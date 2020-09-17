@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from 'src/ticketsModule/node_modules/src/authenticationModule/node_modules/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import TicketSchema from '../../src/tickets/ticket.schema';
+import TicketSchema from '../../src/ticketsModule/ticket.schema';
 import UserSchema from '../../src/users/user.schema';
 
 jest.setTimeout(60000);
