@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import UserService from '../users/user.service';
-import Ticket from './interfaces/ticket.interface';
-import TicketPayload from './interfaces/ticketPayload.interface';
-import TicketStatus from './interfaces/ticketStatus.interface';
+import Ticket from './dto/ticket.interface';
+import TicketPayload from './dto/ticketPayload.interface';
+import TicketStatus from './dto/ticketStatus.interface';
 
 export default class TicketsModel {
   constructor(

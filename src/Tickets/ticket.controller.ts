@@ -1,9 +1,9 @@
 import { Controller, Put, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import TicketsService from './ticket.service';
-import Ticket from './interfaces/ticket.interface';
-import TicketStatus from './interfaces/ticketStatus.interface';
-import TicketPayload from './interfaces/ticketPayload.interface';
+import Ticket from './dto/ticket.interface';
+import TicketStatus from './dto/ticketStatus.interface';
+import TicketPayload from './dto/ticketPayload.interface';
 import AuthGuard from './ticket.gaurd';
 
 @Controller('tickets')

@@ -1,8 +1,8 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import AuthService from './auth.service';
-import LoginPayload from './interfaces/loginPayload.interface';
-import AuthenticatedUser from './interfaces/authenticatedUser.interface';
-import AuthPayload from './interfaces/authPayload.interface';
+import LoginPayload from './dto/loginPayload.interface';
+import AuthenticatedUser from './dto/authenticatedUser.interface';
+import AuthPayload from './dto/authPayload.interface';
 
 @Controller('auth')
 export default class AuthController {
