@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
-import AuthPayload from '../authenticationModule/dto/authPayload.interface';
-import User from './dto/user.interface';
+import AuthPayload from '../authentication/dto/authPayload.dto';
+import User from './dto/user.dto';
 
 export default class UserModel {
   constructor(private readonly userModel: Model<User>) {}

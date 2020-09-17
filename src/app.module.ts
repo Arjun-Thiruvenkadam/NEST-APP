@@ -3,8 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import AppController from './app.controller';
 import AppService from './app.service';
-import TicketsModule from './ticketsModule/ticket.module';
-import AuthModule from './authenticationModule/auth.module';
+import TicketsModule from './tickets/ticket.module';
+import AuthModule from './authentication/auth.module';
 import UserModule from './users/user.module';
 
 @Module({

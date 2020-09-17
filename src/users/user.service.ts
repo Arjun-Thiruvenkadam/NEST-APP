@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import AuthPayload from '../authenticationModule/dto/authPayload.interface';
-import User from './dto/user.interface';
+import AuthPayload from '../authentication/dto/authPayload.dto';
+import User from './dto/user.dto';
 import UserModel from './user.model';
 
 @Injectable()

@@ -3,7 +3,7 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "plugins": [{"name":"@nestjs/swagger/plugin","options":{
-      "dtoFileNameSuffix": [".interface.ts"]
+      "dtoFileNameSuffix": [".dto.ts"]
     }}]
   }
 }

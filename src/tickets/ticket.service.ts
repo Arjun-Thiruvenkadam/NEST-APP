@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import TicketsModel from './ticket.model';
-import Ticket from './dto/ticket.interface';
-import TicketStatus from './dto/ticketStatus.interface';
+import Ticket from './dto/ticket.dto';
+import TicketStatus from './dto/ticketStatus.dto';
 import UserService from '../users/user.service';
-import TicketPayload from './dto/ticketPayload.interface';
+import TicketPayload from './dto/ticketPayload.dto';
 
 @Injectable()
 export default class TicketsService {
