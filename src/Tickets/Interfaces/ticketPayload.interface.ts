@@ -1,4 +1,5 @@
-export class TicketPayload {
+export default class TicketPayload {
   ticketId: number;
+
   personId: string;
 }

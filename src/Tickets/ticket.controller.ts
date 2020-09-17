@@ -1,10 +1,10 @@
 import { Controller, Put, Get, Body, Param, UseGuards } from '@nestjs/common';
-import { TicketsService } from './ticket.service';
-import { Ticket } from './interfaces/ticket.interface';
-import { TicketStatus } from './interfaces/ticketStatus.interface';
-import { TicketPayload } from './interfaces/ticketPayload.interface';
+import { ApiBody } from '@nestjs/swagger';
+import TicketsService from './ticket.service';
+import Ticket from './interfaces/ticket.interface';
+import TicketStatus from './interfaces/ticketStatus.interface';
+import TicketPayload from './interfaces/ticketPayload.interface';
 import AuthGuard from './ticket.gaurd';
-import { ApiBody} from '@nestjs/swagger';
 
 @Controller('tickets')
 export default class TicketsController {
@@ -21,10 +21,9 @@ export default class TicketsController {
 
   @UseGuards(AuthGuard)
   @Put('reset')
-  async resetTickets(@Body() key:string): Promise<string> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async resetTickets(@Body() key: string): Promise<string> {
     const tickets = await this.ticketsService.resetTickets();
-    console.log(key);
-    
     return tickets;
   }
 
@@ -35,7 +34,7 @@ export default class TicketsController {
     @Body('userId') userId: string,
   ): Promise<string> {
     const id = parseInt(ticketId, 10);
-    if (isNaN(id)) return 'Check URL';
+    if (Number.isNaN(id)) return 'Check URL';
     const res = await this.ticketsService.updateTicket(id, userId);
     return res;
   }
@@ -49,7 +48,7 @@ export default class TicketsController {
   @Get(':id')
   async getTicket(@Param('id') ticketId: string): Promise<Ticket | string> {
     const id = parseInt(ticketId, 10);
-    if (isNaN(id)) return 'Check URL';
+    if (Number.isNaN(id)) return 'Check URL';
     const ticket = await this.ticketsService.getTicket(id);
     return ticket;
   }

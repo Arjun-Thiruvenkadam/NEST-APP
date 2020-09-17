@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
-import { AuthPayload } from '../authentication/interfaces/authPayload.interface';
-import { User } from './interfaces/user.interface';
+import AuthPayload from '../authentication/interfaces/authPayload.interface';
+import User from './interfaces/user.interface';
 
 export default class UserModel {
   constructor(private readonly userModel: Model<User>) {}
@@ -20,11 +20,11 @@ export default class UserModel {
     return verifiedUser;
   }
 
-  async getUserWithId(personId: string): Promise<User|string> {
+  async getUserWithId(personId: string): Promise<User | string> {
     const user = await this.userModel
       .findById(personId, '-__v -password')
       .exec()
-      .catch((e) => 'Invalid Id');
+      .catch(() => 'Invalid Id');
     return user;
   }
 }

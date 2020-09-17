@@ -1,4 +1,5 @@
-export class LoginPayload {
+export default class LoginPayload {
   email: string;
+
   password: string;
 }

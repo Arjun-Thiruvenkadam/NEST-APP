@@ -1,4 +1,5 @@
-export class TicketStatus {
+export default class TicketStatus {
   ticketId: number;
-  updated: boolean;
+
+  result: string;
 }

@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-import { TicketSchema } from '../../src/tickets/ticket.schema';
-import UserSchema from '../../src/users/user.schema';
 import { ConfigModule } from '@nestjs/config';
+import TicketSchema from '../../src/tickets/ticket.schema';
+import UserSchema from '../../src/users/user.schema';
 
 jest.setTimeout(60000);
 
@@ -9,7 +9,7 @@ describe('Integration Test', () => {
   let ticketsModel;
   let usersModel;
   const personId = '5f465cf7a8ecff62f072353e';
-  const user = {
+  const sampleUser = {
     userName: 'Arjun',
     mail: 'testuser@gmail.com',
     password: 'Arjun@123',
@@ -41,7 +41,7 @@ describe('Integration Test', () => {
     });
 
     it('should be null for ticket id <0 and >40', async () => {
-      const ticket = await ticketsModel.findOne({ ticketId: 0 });
+      const ticket = await ticketsModel.findOne({ ticketId: 45 });
       expect(ticket).toBeNull();
     });
 
@@ -73,7 +73,7 @@ describe('Integration Test', () => {
     });
   });
 
-  describe('User Modle', () => {
+  describe('User Model', () => {
     it('should get a user', async () => {
       const user = await usersModel.findOne({
         mail: 'arjunthiru123@gmail.com',
@@ -92,10 +92,10 @@ describe('Integration Test', () => {
     });
 
     it('should create and delete a user', async () => {
-      const newUser = await usersModel.create(user);
+      const newUser = await usersModel.create(sampleUser);
       expect(newUser).toBeTruthy();
-      
-      const result = await usersModel.deleteOne(user);
+
+      const result = await usersModel.deleteOne(sampleUser);
       expect(result.n).toBe(1);
     });
   });

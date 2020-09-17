@@ -1,13 +1,11 @@
-import {
-  Module,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TicketsModule } from './tickets/ticket.module';
-import { AuthModule } from './authentication/auth.module';
-import { UserModule } from './users/user.module';
+import AppController from './app.controller';
+import AppService from './app.service';
+import TicketsModule from './tickets/ticket.module';
+import AuthModule from './authentication/auth.module';
+import UserModule from './users/user.module';
 
 @Module({
   imports: [
@@ -20,6 +18,4 @@ import { UserModule } from './users/user.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-
-}
+export default class AppModule {}

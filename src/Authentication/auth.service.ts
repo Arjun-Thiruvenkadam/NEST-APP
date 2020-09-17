@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../users/interfaces/user.interface';
-import { AuthenticatedUser } from './interfaces/authenticatedUser.interface';
+import User from '../users/interfaces/user.interface';
+import AuthenticatedUser from './interfaces/authenticatedUser.interface';
 import UserService from '../users/user.service';
-import { AuthPayload } from './interfaces/authPayload.interface';
+import AuthPayload from './interfaces/authPayload.interface';
 
 @Injectable()
-export class AuthService {
+export default class AuthService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
     private readonly userService: UserService,
@@ -20,6 +20,7 @@ export class AuthService {
     const user = await this.userService.getVerifiedUser(email, password);
     if (user.length > 0) {
       const payload = {
+        // eslint-disable-next-line no-underscore-dangle
         token: user[0]._id,
         name: user[0].userName,
       };
@@ -36,9 +37,9 @@ export class AuthService {
     if (!newUser) return 'Registration Failed';
     const payload = {
       name: newUser.userName,
+      // eslint-disable-next-line no-underscore-dangle
       token: newUser._id,
     };
     return payload;
   }
-
 }
