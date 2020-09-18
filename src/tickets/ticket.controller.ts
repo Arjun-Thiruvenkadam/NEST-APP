@@ -1,5 +1,5 @@
 import { Controller, Put, Get, Body, Param, UseGuards } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiParam } from '@nestjs/swagger';
 import TicketsService from './ticket.service';
 import Ticket from './dto/ticket.dto';
 import TicketStatus from './dto/ticketStatus.dto';
@@ -21,6 +21,12 @@ export default class TicketsController {
 
   @UseGuards(AuthGuard)
   @Put('reset')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: { key: { type: 'string', example: '123' } },
+    },
+  })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async resetTickets(@Body() key: string): Promise<string> {
     const tickets = await this.ticketsService.resetTickets();
@@ -28,7 +34,15 @@ export default class TicketsController {
   }
 
   @Put(':id')
-  @ApiBody({ type: String, required: true })
+  @ApiParam({ name: 'id', example: 1 })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        userId: { type: 'string', example: '5f465cf7a8ecff62f072353e' },
+      },
+    },
+  })
   async updateTicketStatus(
     @Param('id') ticketId: string,
     @Body('userId') userId: string,
@@ -46,6 +60,7 @@ export default class TicketsController {
   }
 
   @Get(':id')
+  @ApiParam({ name: 'id', example: 1 })
   async getTicket(@Param('id') ticketId: string): Promise<Ticket | string> {
     const id = parseInt(ticketId, 10);
     if (Number.isNaN(id)) return 'Check URL';
@@ -54,6 +69,7 @@ export default class TicketsController {
   }
 
   @Get('status/:stat')
+  @ApiParam({ name: 'stat', enum: ['open', 'closed'] })
   async getTicketsWithStatus(@Param('stat') stat: string): Promise<Ticket[]> {
     const tickets = await this.ticketsService.getTicketsWithStatus(stat);
     return tickets;
