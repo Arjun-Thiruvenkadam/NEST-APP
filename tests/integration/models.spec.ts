@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as fc from 'fast-check';
 import { ConfigModule } from '@nestjs/config';
 import TicketSchema from '../../src/tickets/ticket.schema';
 import UserSchema from '../../src/users/user.schema';
@@ -36,8 +37,12 @@ describe('Integration Test', () => {
     });
 
     it('should get ticket with id', async () => {
-      const ticket = await ticketsModel.findOne({ ticketId: 1 });
-      expect(ticket).toHaveProperty('ticketId', 1);
+      fc.assert(
+        fc.asyncProperty(fc.integer(1, 40), async id => {
+          const ticket = await ticketsModel.findOne({ ticketId: id });
+          expect(ticket).toHaveProperty('ticketId', id);
+        }),
+      );
     });
 
     it('should be null for ticket whose id <0 and >40', async () => {

@@ -15,6 +15,10 @@
 - [DB_URL] - MongoDb URL hosted on Atlas
 - [ADMIN_KEY] - Admin key for accessing reset option in API
 
+## Demo
+
+  Visit https://nestjs-bus-api.herokuapp.com/api for a live demo of the API.
+
 ## Endpoints
 
 |HTTP Method |Entity   |Endpoint   |Input   |Result Object   |
