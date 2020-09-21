@@ -33,4 +33,12 @@ export default class UserService {
     if (!user) return 'No User Available with the given id';
     return user;
   }
+
+  async isAdmin(personId: string): Promise<boolean> {
+    const user = await this.userModel.isAdmin(personId);
+    if (user && user.isAdmin) {
+      return true;
+    }
+    return false;
+  }
 }

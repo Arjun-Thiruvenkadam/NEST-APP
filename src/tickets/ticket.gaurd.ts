@@ -1,13 +1,18 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import UserService from '../users/user.service';
 
 @Injectable()
 export default class AuthGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  constructor(private readonly userService: UserService) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    if (request.body.key === process.env.ADMIN_KEY) return true;
+    if (await this.isAdmin(request.body.userId)) return true;
     return false;
   }
+
+  isAdmin = async (userId: string): Promise<boolean> => {
+    const result = await this.userService.isAdmin(userId);
+    return result;
+  };
 }

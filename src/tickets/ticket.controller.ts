@@ -24,11 +24,13 @@ export default class TicketsController {
   @ApiBody({
     schema: {
       type: 'object',
-      properties: { key: { type: 'string', example: '123' } },
+      properties: {
+        userId: { type: 'string', example: '5f465cf7a8ecff62f072353e' },
+      },
     },
   })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async resetTickets(@Body() key: string): Promise<string> {
+  async resetTickets(@Body() userId: string): Promise<string> {
     const tickets = await this.ticketsService.resetTickets();
     return tickets;
   }

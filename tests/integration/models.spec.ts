@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import * as fc from 'fast-check';
 import { ConfigModule } from '@nestjs/config';
 import TicketSchema from '../../src/tickets/ticket.schema';
 import UserSchema from '../../src/users/user.schema';
@@ -37,27 +36,13 @@ describe('Integration Test', () => {
     });
 
     it('should get ticket with id', async () => {
-      fc.assert(
-        fc.asyncProperty(fc.integer(1, 40), async id => {
-          const ticket = await ticketsModel.findOne({ ticketId: id });
-          expect(ticket).toHaveProperty('ticketId', id);
-        }),
-      );
+      const ticket = await ticketsModel.findOne({ ticketId: 1 });
+      expect(ticket).toHaveProperty('ticketId', 1);
     });
 
     it('should be null for ticket whose id <0 and >40', async () => {
       const ticket = await ticketsModel.findOne({ ticketId: 45 });
       expect(ticket).toBeNull();
-    });
-
-    it('should update ticket based on id and status', async () => {
-      const ticketId = 1;
-      await ticketsModel.updateOne(
-        { ticketId, status: 'open' },
-        { status: 'closed', personId },
-      );
-      const ticket = await ticketsModel.findOne({ ticketId });
-      expect(ticket.status).toBe('closed');
     });
 
     it('should not update ticket for invalid id', async () => {
@@ -67,14 +52,6 @@ describe('Integration Test', () => {
         { status: 'closed', personId },
       );
       expect(result.n).toBe(0);
-    });
-
-    it('should update match all tickets', async () => {
-      const result = await ticketsModel.updateMany(
-        {},
-        { status: 'open', personId: null },
-      );
-      expect(result.n).toBe(40);
     });
   });
 
@@ -87,7 +64,7 @@ describe('Integration Test', () => {
     });
 
     it('should get a null', async () => {
-      const user = await usersModel.findOne({ mail: '__nomail__@gmail.com' });
+      const user = await usersModel.findOne({ mail: '__nomail__@gmail' });
       expect(user).toBeNull();
     });
 

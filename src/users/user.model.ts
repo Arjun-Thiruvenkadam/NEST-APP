@@ -27,4 +27,11 @@ export default class UserModel {
       .catch(() => 'Invalid Id');
     return user;
   }
+
+  async isAdmin(personId: string): Promise<boolean> {
+    const user = await this.userModel
+      .findById(personId, 'isAdmin -_id')
+      .catch(() => undefined);
+    return user;
+  }
 }
