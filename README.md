@@ -13,7 +13,6 @@
 ## Environment Variables Used
 
 - [DB_URL] - MongoDb URL hosted on Atlas
-- [ADMIN_KEY] - Admin key for accessing reset option in API
 
 ## Demo
 
@@ -37,7 +36,7 @@
 
 ```bash
 # Install
-$ git clone https://gitlab.com/arjunthiru/nestjs-api.git
+$ git clone https://github.com/Arjun-Thiruvenkadam/NEST-APP.git
 
 $ cd <PROJECT_NAME>
 
