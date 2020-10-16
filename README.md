@@ -16,7 +16,7 @@
 
 ## Demo
 
-  Visit https://nestjs-bus-api.herokuapp.com/api for a live demo of the API.
+  Visit https://nestjs-bus-api.herokuapp.com/docs for a live demo of the API.
 
 ## Installation
 
